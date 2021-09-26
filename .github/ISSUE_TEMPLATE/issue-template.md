@@ -7,8 +7,11 @@ assignees: ''
 
 ---
 
-**Propose change**
+# Propose change
+**Provide info about the change to be made**
 
-**Why is this important**
+# Why is this important
+**Why do we need to implement this.**
 
-**Additional context**
+# Additional context
+**Any information that might be helpful**
