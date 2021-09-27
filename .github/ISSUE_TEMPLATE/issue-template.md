@@ -6,11 +6,6 @@ labels: ''
 assignees: ''
 
 ---
-# Propose change
-**Provide info about the change to be made**
-- Change 1
-- Change 2
-
 # Why is this important
 **Why do we need to implement this.**
 
@@ -21,10 +16,3 @@ assignees: ''
 - [] Tests
 - [] Translations
 - [] Documentation
-
-# Screenshots
-Origianl                | Updated
-
-:======================:|:======================:
-
-**original screenshot** | **updated screenshot**
