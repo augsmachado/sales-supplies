@@ -1,1 +1,9 @@
-# mern_sales_supplies
+# Sales Supplies documentation
+
+## Objective
+
+## About code
+
+## About API
+
+## About UI
