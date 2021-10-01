@@ -6,20 +6,24 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
 ## About code
 
 ## About API
-### Filters
+### Endpoints
 
-- Search all sales: *GET/sales*
-    - Search all sales of a specifc store location: *GET/sales?storeLocation=<city>*
-    - Search all sales of a specific purchase method: *GET/sales?purchaseMethod=<method>*
-    - Search all sales that use coupons: *GET/sales?couponUsed=<boolean>*
-    - Search all sales in date range: *GET/sales?initial=<date>&final=<date>*
+- Search sales
+    - all sales: *GET/sales*
+    - by store location: *GET/sales?storeLocation=<city>*
+    - by purchase method: *GET/sales?purchaseMethod=<method>*
+    - by use coupons: *GET/sales?couponUsed=<boolean>*
+    - by date range: *GET/sales?initial=<date>&final=<date>*
+    - customer purchases by gender: *GET/sales?gender=<gender>*
+    - customer purchases by email: *GET/sales?email=<email>?*
     
 - Search an specific sales: *GET/sales/:id*
     
 - Create a new sale: *POST/sales/new*
 
-- Update infos of a sale: *PUT/sales/:id*
+- Update the sale, items and consumer infos: *PUT/sales/:id*
 
+- Create user (?)
 
 ## About UI
 
