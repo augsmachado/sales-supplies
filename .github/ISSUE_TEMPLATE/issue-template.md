@@ -12,6 +12,9 @@ assignees: ''
 # Additional context
 **Any information that might be helpful**
 
+# Data schema
+**Any information about the data used to execute this task**
+
 # CheckList
 - [ ] Tests
 - [ ] Translations
