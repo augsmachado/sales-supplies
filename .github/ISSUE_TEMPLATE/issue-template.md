@@ -13,6 +13,6 @@ assignees: ''
 **Any information that might be helpful**
 
 # CheckList
-- [] Tests
-- [] Translations
-- [] Documentation
+- [ ] Tests
+- [ ] Translations
+- [ ] Documentation
