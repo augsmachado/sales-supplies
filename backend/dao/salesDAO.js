@@ -1,6 +1,9 @@
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 
+const SALES_PER_PAGE = 20;
+const PAGE = 0;
+
 let sales;
 
 export default class SalesDAO {
@@ -23,8 +26,8 @@ export default class SalesDAO {
 
 	static async getSales({
 		filters = null,
-		page = 0,
-		salesPerPage = 20,
+		page = PAGE,
+		salesPerPage = SALES_PER_PAGE,
 	} = {}) {
 		let query;
 
@@ -50,7 +53,7 @@ export default class SalesDAO {
 		try {
 			const salesList = await displayCursor.toArray();
 			const totalNumSales =
-				page === 0 ? await sales.countDocuments(query) : 0;
+				page === PAGE ? await sales.countDocuments(query) : 0;
 			return { salesList, totalNumSales };
 		} catch (err) {
 			console.error(
