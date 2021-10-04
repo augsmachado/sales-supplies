@@ -24,6 +24,7 @@ export default class SalesDAO {
 		}
 	}
 
+	// Get all sales based in filters
 	static async getSales({
 		filters = null,
 		page = PAGE,
@@ -60,6 +61,22 @@ export default class SalesDAO {
 				`Unable to convert cursor to array or problem to count documents, ${err}`
 			);
 			return { salesList: [], totalNumSales: 0 };
+		}
+	}
+
+	// List all store locations
+	static async getStoreLocation() {
+		let storeLocation = [];
+
+		try {
+			// Select distinct storeLocation order by ascending name
+			storeLocation = await sales.distinct("storeLocation");
+			storeLocation.sort();
+
+			return storeLocation;
+		} catch (err) {
+			console.error(`Unable to get store location or order by ascending name, ${err}`);
+			return storeLocation;
 		}
 	}
 }

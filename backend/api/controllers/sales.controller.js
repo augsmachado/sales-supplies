@@ -1,6 +1,8 @@
 import SalesDAO from "../../dao/salesDAO.js";
 
 export default class SalesController {
+	
+	// Get all sales
 	static async apiGetSales(req, res, next) {
 		const salesPerPage = req.query.salesPerPage
 			? parseInt(req.query.salesPerPage, 10)
@@ -29,5 +31,16 @@ export default class SalesController {
 		};
 
 		res.json(response);
+	}
+
+	// List all storeLocation
+	static async apiGetStoreLocation(req, res, next) {
+		try {
+			let storeLocation = await SalesDAO.getStoreLocation();
+			res.json(storeLocation);
+		} catch (err) {
+			console.log(`api, ${err}`);
+			res.status(500).json({ error: err });
+		}
 	}
 }
