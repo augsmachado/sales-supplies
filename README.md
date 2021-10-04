@@ -17,7 +17,7 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
     - customer purchases by gender: *GET/sales?gender=<gender>*
     - customer purchases by email: *GET/sales?email=<email>?*
     
-- Search an specific sales: *GET/sales/:id*
+- Read a specific sale: *GET/sales/:id*
     
 - Create a new sale: *POST/sales/new*
 
