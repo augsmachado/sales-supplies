@@ -10,6 +10,9 @@ router.route("/").get(SalesController.apiGetSales);
 // Define route to get a list all store location
 router.route("/storeLocation").get(SalesController.apiGetStoreLocation);
 
+// Define route to get a list all purchaseMethod
+router.route("/purchaseMethod").get(SalesController.apiGetPurchaseMethod);
+
 // Define route for the restaurants using filters: zipcode, name and type of cuisine
 //router.route("/").get(RestaurantsCtrl.apiGetRestaurants);
 

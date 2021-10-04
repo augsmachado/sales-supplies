@@ -38,6 +38,17 @@ export default class SalesDAO {
 			} else if ("purchaseMethod" in filters) {
 				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
 			}
+			
+			// List all sales of a sales location using the specified purchase method
+			if (
+				"purchaseMethod" in filters &&
+				"storeLocation" in filters
+			) {
+				query = {
+					storeLocation: { $eq: filters["storeLocation"] },
+					purchaseMethod: { $eq: filters["purchaseMethod"] },
+				};
+			}
 		}
 
 		let cursor;
@@ -75,8 +86,28 @@ export default class SalesDAO {
 
 			return storeLocation;
 		} catch (err) {
-			console.error(`Unable to get store location or order by ascending name, ${err}`);
+			console.error(
+				`Unable to get store location or order by ascending name, ${err}`
+			);
 			return storeLocation;
+		}
+	}
+
+	// List all store locations
+	static async getPurchaseMethod() {
+		let purchaseMethod = [];
+
+		try {
+			// Select distinct purchaseMethod order by ascending name
+			purchaseMethod = await sales.distinct("purchaseMethod");
+			purchaseMethod.sort();
+
+			return purchaseMethod;
+		} catch (err) {
+			console.error(
+				`Unable to get purchase or order by ascending name, ${err}`
+			);
+			return purchaseMethod;
 		}
 	}
 }

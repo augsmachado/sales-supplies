@@ -10,9 +10,17 @@ export default class SalesController {
 		const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
 		let filters = {};
+		
+		// Only filter is used
 		if (req.query.storeLocation) {
 			filters.storeLocation = req.query.storeLocation;
 		} else if (req.query.purchaseMethod) {
+			filters.purchaseMethod = req.query.purchaseMethod;
+		}
+		
+		// Combination of filters
+		if (req.query.storeLocation && req.query.purchaseMethod) {
+			filters.storeLocation = req.query.storeLocation;
 			filters.purchaseMethod = req.query.purchaseMethod;
 		}
 
@@ -38,6 +46,17 @@ export default class SalesController {
 		try {
 			let storeLocation = await SalesDAO.getStoreLocation();
 			res.json(storeLocation);
+		} catch (err) {
+			console.log(`api, ${err}`);
+			res.status(500).json({ error: err });
+		}
+	}
+
+	// List all purchaseMethod
+	static async apiGetPurchaseMethod(req, res, next) {
+		try {
+			let purchaseMethod = await SalesDAO.getPurchaseMethod();
+			res.json(purchaseMethod);
 		} catch (err) {
 			console.log(`api, ${err}`);
 			res.status(500).json({ error: err });
