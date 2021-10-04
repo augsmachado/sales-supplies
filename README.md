@@ -26,6 +26,8 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
 - Update the sale, items and consumer infos: *PUT/sales/:id*
 
 - List all store locations: *GET/storeLocation*
+    
+- List all purchase method: *GET/purchaseMethod*
 
 - Create user (?)
 
