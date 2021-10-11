@@ -32,18 +32,18 @@ export default class SalesDAO {
 	} = {}) {
 		let query;
 
+		// TODO: review the query used in filters and the combination with another filter
 		if (filters) {
 			if ("storeLocation" in filters) {
 				query = { storeLocation: { $eq: filters["storeLocation"] } };
 			} else if ("purchaseMethod" in filters) {
 				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
+			} else if ("couponUsed" in filters) {
+				query = { couponUsed: { $eq: filters["couponUsed"] } };
 			}
-			
+
 			// List all sales of a sales location using the specified purchase method
-			if (
-				"purchaseMethod" in filters &&
-				"storeLocation" in filters
-			) {
+			if ("purchaseMethod" in filters && "storeLocation" in filters) {
 				query = {
 					storeLocation: { $eq: filters["storeLocation"] },
 					purchaseMethod: { $eq: filters["purchaseMethod"] },
@@ -72,6 +72,21 @@ export default class SalesDAO {
 				`Unable to convert cursor to array or problem to count documents, ${err}`
 			);
 			return { salesList: [], totalNumSales: 0 };
+		}
+	}
+
+	// Get a specific sale
+	static async getSaleById(id) {
+		try {
+			// id as a String is passed to convert to ObjectId
+			let o_id = new ObjectId(id);
+
+			// Find one id that matches
+			return await sales.findOne(o_id);
+		} catch (err) {
+			console.error(`Something went wrong in the getSaleById: ${err}`);
+
+			throw err;
 		}
 	}
 

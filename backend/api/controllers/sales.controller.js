@@ -1,7 +1,6 @@
 import SalesDAO from "../../dao/salesDAO.js";
 
 export default class SalesController {
-	
 	// Get all sales
 	static async apiGetSales(req, res, next) {
 		const salesPerPage = req.query.salesPerPage
@@ -10,14 +9,17 @@ export default class SalesController {
 		const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
 		let filters = {};
-		
+
 		// Only filter is used
 		if (req.query.storeLocation) {
 			filters.storeLocation = req.query.storeLocation;
 		} else if (req.query.purchaseMethod) {
 			filters.purchaseMethod = req.query.purchaseMethod;
 		}
-		
+		if (req.query.couponUsed) {
+			filters.couponUsed = req.query.couponUsed;
+		}
+
 		// Combination of filters
 		if (req.query.storeLocation && req.query.purchaseMethod) {
 			filters.storeLocation = req.query.storeLocation;
@@ -39,6 +41,23 @@ export default class SalesController {
 		};
 
 		res.json(response);
+	}
+
+	// Get a specific sale
+	static async apiGetSaleById(req, res, next) {
+		try {
+			let id = req.params.id || {};
+			let sale = await SalesDAO.getSaleById(id);
+
+			if (!sale) {
+				res.status(400).json({ error: "No sale found" });
+				return;
+			}
+			res.json(sale);
+		} catch (err) {
+			console.log(`api, ${err}`);
+			res.status(500).json({ error: err });
+		}
 	}
 
 	// List all storeLocation
