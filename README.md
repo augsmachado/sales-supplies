@@ -15,6 +15,7 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
     - by purchase method: *GET/sales?purchaseMethod=<method>*
         - filter by `In store`, `Online` or `Phone`
     - by use coupons: *GET/sales?couponUsed=<boolean>*
+        - filter by `true` or `false`
     - by date range: *GET/sales?initial=<date>&final=<date>*
     - customer purchases by gender: *GET/sales?gender=<gender>*
     - customer purchases by email: *GET/sales?email=<email>?*
