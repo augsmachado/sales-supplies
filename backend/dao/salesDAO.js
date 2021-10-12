@@ -40,6 +40,8 @@ export default class SalesDAO {
 				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
 			} else if ("couponUsed" in filters) {
 				query = { couponUsed: { $eq: filters["couponUsed"] } };
+			} else if ("email" in filters) {
+				query = { "customer.email": { $eq: filters["email"] } };
 			}
 
 			// List all sales of a sales location using the specified purchase method
@@ -125,4 +127,5 @@ export default class SalesDAO {
 			return purchaseMethod;
 		}
 	}
+
 }

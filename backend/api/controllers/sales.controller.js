@@ -15,9 +15,10 @@ export default class SalesController {
 			filters.storeLocation = req.query.storeLocation;
 		} else if (req.query.purchaseMethod) {
 			filters.purchaseMethod = req.query.purchaseMethod;
-		}
-		if (req.query.couponUsed) {
+		} else if (req.query.couponUsed) {
 			filters.couponUsed = req.query.couponUsed;
+		} else if (req.query.email) {
+			filters.email = req.query.email;
 		}
 
 		// Combination of filters
