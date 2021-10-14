@@ -18,7 +18,12 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
         - filter by `true` or `false`
     - by date range: *GET/sales?initial=<date>&final=<date>*
     - customer purchases by gender: *GET/sales?gender=<gender>*
-    - customer purchases by email: *GET/sales?email=<email>?*
+        - filter by `M` (masculine) or `F` (feminine)
+    - customer purchases by age: *GET/sales?age=<age>*
+    - customer purchases by email: *GET/sales?email=<email>*
+    - customer purchases by satisfaction: *GET/sales?satisfaction=<level>*
+        - filter by 0 (the worst) into 5 (the best)
+    
     
 - Read a specific sale: *GET/sales/:id*
     
@@ -27,9 +32,6 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
 - Update the sale, items and consumer infos: *PUT/sales/:id*
     
 - List all distinct customers: *GET/customers*
-    - gender
-    - age
-    - email
 
 - List all store locations: *GET/storeLocation*
     
