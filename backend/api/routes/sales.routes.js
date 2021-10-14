@@ -10,10 +10,13 @@ router.route("/").get(SalesController.apiGetSales);
 // Define route to get a specific sale
 router.route("/id/:id").get(SalesController.apiGetSaleById);
 
-// Define route to get a list all store location
+// Define route to get a list all distinct cutomers
+router.route("/customers").get(SalesController.apiGetCustomers);
+
+// Define route to get a list all distinct store location
 router.route("/storeLocation").get(SalesController.apiGetStoreLocation);
 
-// Define route to get a list all purchaseMethod
+// Define route to get a list all distinct purchaseMethod
 router.route("/purchaseMethod").get(SalesController.apiGetPurchaseMethod);
 
 

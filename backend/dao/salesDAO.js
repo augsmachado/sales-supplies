@@ -1,7 +1,7 @@
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 
-const SALES_PER_PAGE = 20;
+const STANDARD_PER_PAGE = 20;
 const PAGE = 0;
 
 let sales;
@@ -28,7 +28,7 @@ export default class SalesDAO {
 	static async getSales({
 		filters = null,
 		page = PAGE,
-		salesPerPage = SALES_PER_PAGE,
+		salesPerPage = STANDARD_PER_PAGE,
 	} = {}) {
 		let query;
 
@@ -40,8 +40,16 @@ export default class SalesDAO {
 				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
 			} else if ("couponUsed" in filters) {
 				query = { couponUsed: { $eq: filters["couponUsed"] } };
+			} else if ("gender" in filters) {
+				query = { "customer.gender": { $eq: filters["gender"] } };
+			} else if ("age" in filters) {
+				query = { "customer.age": { $eq: filters["age"] } };
 			} else if ("email" in filters) {
 				query = { "customer.email": { $eq: filters["email"] } };
+			} else if ("satisfaction" in filters) {
+				query = {
+					"customer.satisfaction": { $eq: filters["satisfaction"] },
+				};
 			}
 
 			// List all sales of a sales location using the specified purchase method
@@ -57,7 +65,7 @@ export default class SalesDAO {
 		try {
 			cursor = await sales.find(query);
 		} catch (err) {
-			console.error(`Unable to issue find command, ${err}`, err);
+			console.error(`Unable to issue find command getSales, ${err}`, err);
 			return { salesList: [], totalNumSales: 0 };
 		}
 
@@ -89,6 +97,29 @@ export default class SalesDAO {
 			console.error(`Something went wrong in the getSaleById: ${err}`);
 
 			throw err;
+		}
+	}
+
+	// List all distinct customers
+	static async getCustomers() {
+		let customers = [];
+		try {
+			customers = await sales.distinct("customer");
+			customers.sort();
+		} catch (err) {
+			console.error(`Unable to get all distinct customers, ${err}`);
+			return { customersList: [], totalNumCustomers: 0 };
+		}
+
+		try {
+			const customersList = customers;
+			const totalNumCustomers = () => (PAGE ? customersList.length : 0);
+			return { customersList, totalNumCustomers };
+		} catch (err) {
+			console.error(
+				`Unable to convert cursor to array or problem to count distict customers, ${err}`
+			);
+			return { customersList: [], totalNumCustomers: 0 };
 		}
 	}
 
@@ -127,5 +158,4 @@ export default class SalesDAO {
 			return purchaseMethod;
 		}
 	}
-
 }
