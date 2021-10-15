@@ -25,11 +25,13 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
         - filter by 0 (the worst) into 5 (the best)
     
     
-- Read a specific sale: *GET/sales/:id*
+- Read a specific sale: *GET/sales/id/:id*
     
 - Create a new sale: *POST/sales/new*
 
-- Update the sale, items and consumer infos: *PUT/sales/:id*
+- Update the sale, items and consumer infos: *PUT/sales/id/:id*
+    
+- Delete a specific sale: *DELETE/sales/id/:id*
     
 - List all distinct customers: *GET/customers*
 
