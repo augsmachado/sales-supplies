@@ -17,8 +17,12 @@ export default class SalesController {
 			} else if (req.query.purchaseMethod) {
 				filters.purchaseMethod = req.query.purchaseMethod;
 			} else if (req.query.couponUsed) {
-				filters.couponUsed = req.query.couponUsed;
-			} else if (req.query.gender){
+				const bool =
+					req.query.couponUsed.toLowerCase() === "true"
+						? true
+						: false;
+				filters.couponUsed = bool;
+			} else if (req.query.gender) {
 				filters.gender = req.query.gender;
 			} else if (req.query.age) {
 				filters.age = parseInt(req.query.age);
@@ -75,12 +79,13 @@ export default class SalesController {
 	// List all distinct customers
 	static async apiGetCustomers(req, res, next) {
 		try {
-			const { customersList, totalNumCustomers } = await SalesDAO.getCustomers();
+			const { customersList, totalNumCustomers } =
+				await SalesDAO.getCustomers();
 
 			let response = {
 				customers: customersList,
-				total_results: totalNumCustomers
-			}
+				total_results: totalNumCustomers,
+			};
 			res.json(response);
 		} catch (err) {
 			console.log(`apiGetCustomers, ${err}`);

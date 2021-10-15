@@ -35,11 +35,11 @@ export default class SalesDAO {
 		// TODO: review the query used in filters and the combination with another filter
 		if (filters) {
 			if ("storeLocation" in filters) {
-				query = { storeLocation: { $eq: filters["storeLocation"] } };
+				query = { "storeLocation": { $eq: filters["storeLocation"] } };
 			} else if ("purchaseMethod" in filters) {
-				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
+				query = { "purchaseMethod": { $eq: filters["purchaseMethod"] } };
 			} else if ("couponUsed" in filters) {
-				query = { couponUsed: { $eq: filters["couponUsed"] } };
+				query = { "couponUsed": { $eq: filters["couponUsed"] } };
 			} else if ("gender" in filters) {
 				query = { "customer.gender": { $eq: filters["gender"] } };
 			} else if ("age" in filters) {
