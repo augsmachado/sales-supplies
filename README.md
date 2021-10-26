@@ -39,8 +39,6 @@ First of all, Sales Supplies is API REST for managing purchases, sales and inven
     
 - Delete a specific sale: *DELETE/sales/id/:id*
 
-- Create user (?)
-
 ## About UI
 [mern_sales_supplies.drawio.pdf](https://github.com/augsmachado/mern_sales_supplies/files/7414775/mern_sales_supplies.drawio.pdf)
 
