@@ -60,10 +60,10 @@ export default class SalesController {
 	}
 
 	// Get a specific sale
-	static async apiGetSaleById(req, res, next) {
+	static async apiGetSalesById(req, res, next) {
 		try {
 			let id = req.params.id || {};
-			let sale = await SalesDAO.getSaleById(id);
+			let sale = await SalesDAO.getSalesById(id);
 
 			if (!sale) {
 				res.status(400).json({ error: "No sale found" });
@@ -73,6 +73,59 @@ export default class SalesController {
 		} catch (err) {
 			console.log(`apiGetSalesById, ${err}`);
 			res.status(500).json({ error: err });
+		}
+	}
+
+	// Create a new sale
+	static async apiPostSales(req, res, next) {
+		try {
+			const saleDate = new Date();
+			const customer = {
+				gender: req.body.gender,
+				age: req.body.age,
+				email: req.body.email,
+				satisfaction: req.body.satisfaction,
+			};
+			const storeLocation = req.body.store_location;
+			const couponUsed =
+				req.body.couponUsed.toLowerCase() === "true"
+				? true
+				: false;
+			const purchaseMethod = req.body.purchase_method;
+			const items = new Array(
+				{
+					name: req.body.name,
+					tags: new Array(req.body.tags),
+					price: req.body.price,
+					quantity: req.body.quantity,
+				}
+			);
+
+			const response = await SalesDAO.newSale(
+				saleDate,
+				customer,
+				storeLocation,
+				couponUsed,
+				purchaseMethod,
+				items
+			);
+
+			res.json({ status: "sucess", response: response });
+		} catch (err) {
+			res.status(500).json({ error: err.message });
+		}
+	}
+
+	// Delete a specific sale
+	static async apiDeleteSalesById(req, res, next) {
+		try {
+			const saleId = req.params.id;
+			
+			const response = await SalesDAO.deleteSalesById(saleId);
+
+			res.json({ status: "success", response: response });
+		} catch (err) {
+			res.status(500).json({ error: err.message });
 		}
 	}
 

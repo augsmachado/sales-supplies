@@ -86,7 +86,7 @@ export default class SalesDAO {
 	}
 
 	// Get a specific sale
-	static async getSaleById(id) {
+	static async getSalesById(id) {
 		try {
 			// id as a String is passed to convert to ObjectId
 			let o_id = new ObjectId(id);
@@ -97,6 +97,55 @@ export default class SalesDAO {
 			console.error(`Something went wrong in the getSaleById: ${err}`);
 
 			throw err;
+		}
+	}
+
+	// Create a new sale
+	static async newSale(
+		saleDate,
+		customer,
+		storeLocation,
+		couponUsed,
+		purchaseMethod,
+		items
+	) {
+		try {
+			const sale = {
+				saleDate: saleDate,
+				
+				customer: {
+					gender: customer.gender,
+					age: customer.age,
+					email: customer.email,
+					satisfaction: customer.satisfaction,
+				},
+				
+				
+				storeLocation: storeLocation,
+				couponUsed: couponUsed,
+				purchaseMethod: purchaseMethod,
+
+				items: items,
+			};
+
+			return await sales.insertOne(sale);
+		} catch (err) {
+			console.error(`Unable to create a new sale: ${err}`);
+			return { error: err };
+		};
+	}
+
+	// Delete a specific sale
+	static async deleteSalesById(saleId) {
+		try {
+			const deleteResponse = await sales.deleteOne({
+				_id: ObjectId(saleId)
+			});
+
+			return deleteResponse;
+		} catch (err) {
+			console.error(`Unable to delete sale: ${err}`);
+			return { error: err };
 		}
 	}
 
