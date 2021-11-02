@@ -35,11 +35,11 @@ export default class SalesDAO {
 		// TODO: review the query used in filters and the combination with another filter
 		if (filters) {
 			if ("storeLocation" in filters) {
-				query = { "storeLocation": { $eq: filters["storeLocation"] } };
+				query = { storeLocation: { $eq: filters["storeLocation"] } };
 			} else if ("purchaseMethod" in filters) {
-				query = { "purchaseMethod": { $eq: filters["purchaseMethod"] } };
+				query = { purchaseMethod: { $eq: filters["purchaseMethod"] } };
 			} else if ("couponUsed" in filters) {
-				query = { "couponUsed": { $eq: filters["couponUsed"] } };
+				query = { couponUsed: { $eq: filters["couponUsed"] } };
 			} else if ("gender" in filters) {
 				query = { "customer.gender": { $eq: filters["gender"] } };
 			} else if ("age" in filters) {
@@ -113,8 +113,7 @@ export default class SalesDAO {
 			const sale = {
 				saleDate: saleDate,
 				customer: customer,
-				
-				
+
 				storeLocation: storeLocation,
 				couponUsed: couponUsed,
 				purchaseMethod: purchaseMethod,
@@ -126,14 +125,37 @@ export default class SalesDAO {
 		} catch (err) {
 			console.error(`Unable to create a new sale: ${err}`);
 			return { error: err };
-		};
+		}
+	}
+
+	// Update a specific sale
+	static async updateSale(saleId, saleDate, customer, items) {
+		try {
+			const updateResponse = await sales.updateOne(
+				{
+					_id: ObjectId(saleId),
+				},
+				{
+					$set: {
+						saleDate: saleDate,
+						customer: customer,
+						items: items,
+					},
+				}
+			);
+
+			return updateResponse;
+		} catch (err) {
+			console.error(`Unable to update sale: ${err}`);
+			return { error: err };
+		}
 	}
 
 	// Delete a specific sale
 	static async deleteSalesById(saleId) {
 		try {
 			const deleteResponse = await sales.deleteOne({
-				_id: ObjectId(saleId)
+				_id: ObjectId(saleId),
 			});
 
 			return deleteResponse;

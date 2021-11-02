@@ -13,7 +13,10 @@ router.route("/:id").get(SalesController.apiGetSalesById);
 // Define route to create new sale
 router.route("/new").post(SalesController.apiPostSales);
 
-//.put(SalesController.apiUpdateSalesById)
+// Define route to update a specific sale
+router.route("/update/:id").put(SalesController.apiUpdateSalesById);
+
+// Define route to delete a specific sale
 router.route("/delete/:id").delete(SalesController.apiDeleteSalesById);
 
 // Define route to get a list all distinct cutomers

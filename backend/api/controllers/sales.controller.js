@@ -83,9 +83,7 @@ export default class SalesController {
 			const customer = req.body.customer;
 			const storeLocation = req.body.storeLocation;
 			const couponUsed =
-				req.body.couponUsed.toLowerCase() === "true"
-				? true
-				: false;
+				req.body.couponUsed.toLowerCase() === "true" ? true : false;
 			const purchaseMethod = req.body.purchaseMethod;
 			const items = req.body.items;
 
@@ -104,11 +102,43 @@ export default class SalesController {
 		}
 	}
 
+	// Update a specific sale
+	static async apiUpdateSalesById(req, res, next) {
+		try {
+			const saleId = req.params.id;
+			const saleDate = new Date();
+			const customer = req.body.customer;
+			const items = req.body.items;
+
+			const response = await SalesDAO.updateSales(
+				saleId,
+				saleDate,
+				customer,
+				items
+			);
+
+			var { error } = response;
+			if (error) {
+				res.status(400).json({ error });
+			}
+
+			if (response.modifiedCount === 0) {
+				throw new Error(
+					"unable to update sale - customer may not be original buyer"
+				);
+			}
+
+			res.json({ status: "success", response: response });
+		} catch (err) {
+			res.status(500).json({ err: err.message });
+		}
+	}
+
 	// Delete a specific sale
 	static async apiDeleteSalesById(req, res, next) {
 		try {
 			const saleId = req.params.id;
-			
+
 			const response = await SalesDAO.deleteSalesById(saleId);
 
 			res.json({ status: "success", response: response });
