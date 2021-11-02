@@ -80,26 +80,14 @@ export default class SalesController {
 	static async apiPostSales(req, res, next) {
 		try {
 			const saleDate = new Date();
-			const customer = {
-				gender: req.body.gender,
-				age: req.body.age,
-				email: req.body.email,
-				satisfaction: req.body.satisfaction,
-			};
-			const storeLocation = req.body.store_location;
+			const customer = req.body.customer;
+			const storeLocation = req.body.storeLocation;
 			const couponUsed =
 				req.body.couponUsed.toLowerCase() === "true"
 				? true
 				: false;
-			const purchaseMethod = req.body.purchase_method;
-			const items = new Array(
-				{
-					name: req.body.name,
-					tags: new Array(req.body.tags),
-					price: req.body.price,
-					quantity: req.body.quantity,
-				}
-			);
+			const purchaseMethod = req.body.purchaseMethod;
+			const items = req.body.items;
 
 			const response = await SalesDAO.newSale(
 				saleDate,

@@ -112,13 +112,7 @@ export default class SalesDAO {
 		try {
 			const sale = {
 				saleDate: saleDate,
-				
-				customer: {
-					gender: customer.gender,
-					age: customer.age,
-					email: customer.email,
-					satisfaction: customer.satisfaction,
-				},
+				customer: customer,
 				
 				
 				storeLocation: storeLocation,
