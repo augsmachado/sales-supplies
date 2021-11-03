@@ -129,7 +129,7 @@ export default class SalesDAO {
 	}
 
 	// Update a specific sale
-	static async updateSale(saleId, saleDate, customer, items) {
+	static async updateSales(saleId, saleDate, customer, items) {
 		try {
 			const updateResponse = await sales.updateOne(
 				{
